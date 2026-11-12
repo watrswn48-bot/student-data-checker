@@ -1,0 +1,17 @@
+{
+  "name": "فاحص بيانات الطلاب",
+  "short_name": "فاحص الطلاب",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f2f5fa",
+  "theme_color": "#10294d",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "100x100",
+      "type": "image/jpeg"
+    }
+  ]
+}

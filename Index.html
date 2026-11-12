@@ -1,9 +1,12 @@
 <!doctype html>
-<html lang="ar" dir="rtl"><head><base target="_top"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>فاحص بيانات الطلاب</title>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base target="_top"><title>فاحص بيانات الطلاب</title>
 <style>
 *{box-sizing:border-box}body{margin:0;padding:20px;background:#f3f6fb;color:#172033;font-family:Tahoma,Arial,sans-serif}.wrap{max-width:1050px;margin:auto}
-header{background:linear-gradient(135deg,#14213d,#2457a6);color:white;padding:25px;border-radius:18px;margin-bottom:18px}
+header{background:linear-gradient(135deg,#14213d,#2457a6);color:white;padding:25px;border-radius:18px;margin-bottom:18px;display:flex;align-items:center;gap:20px}
+.logo{width:112px;height:112px;object-fit:contain;border-radius:50%;background:#fff;padding:4px;flex:0 0 auto}
 h1{margin:0 0 8px;font-size:25px}.sub{opacity:.9;font-size:14px}.bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:16px 0}
 button{border:0;background:#2457a6;color:white;padding:12px 18px;border-radius:10px;font-weight:bold;cursor:pointer}button:disabled{opacity:.6}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}.card,section{background:white;border:1px solid #e4eaf2;border-radius:15px;padding:17px}
@@ -11,9 +14,13 @@ button{border:0;background:#2457a6;color:white;padding:12px 18px;border-radius:1
 input{width:100%;padding:12px;border:1px solid #dce3ef;border-radius:10px;margin:12px 0}
 .tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:560px}th,td{text-align:right;padding:12px;border-bottom:1px solid #edf0f5;vertical-align:top}th{background:#f7f9fc;color:#536179;font-size:13px}.tag{display:inline-block;background:#fff2e8;color:#a64b0b;border-radius:7px;padding:5px 8px;margin:2px;font-size:12px}
 #error{display:none;background:#fff1f0;color:#a42318;padding:12px;border-radius:10px;margin:12px 0}#status,footer{color:#66738a;font-size:13px}footer{text-align:center;margin:18px}
-@media(max-width:650px){body{padding:12px}.cards{grid-template-columns:1fr}.num{font-size:24px}}
-</style></head><body><div class="wrap">
-<header><h1>فاحص بيانات الطلاب</h1><div class="sub">اكتشف الخانات الناقصة في بيانات الطلاب بسهولة</div></header>
+@media(max-width:650px){body{padding:12px}header{flex-direction:column;text-align:center}.logo{width:96px;height:96px}.cards{grid-template-columns:1fr}.num{font-size:24px}}
+</style></head>
+<body><div class="wrap">
+<header>
+<img class="logo" src="https://raw.githubusercontent.com/watrswn48-bot/student-data-checker/main/logo.jpg" alt="شعار المدرسة">
+<div><h1>فاحص بيانات الطلاب</h1><div class="sub">مدرسة تي اتشرومبي للألحان — اكتشف الخانات الناقصة في بيانات الطلاب بسهولة</div></div>
+</header>
 <div class="bar"><div id="status">جاري قراءة الشيت...</div><button id="refresh" onclick="loadReport()">تحديث البيانات</button></div>
 <div id="error"></div>
 <div class="cards">
@@ -34,7 +41,7 @@ function loadReport(){
 }
 function renderRows(){
  const q=document.getElementById('search').value.trim().toLowerCase(),body=document.getElementById('rows');
- const filtered=reportData.filter(s=>s.name.toLowerCase().includes(q));
+ const filtered=reportData.filter(s=>String(s.name||'').toLowerCase().includes(q));
  if(!filtered.length){body.innerHTML='<tr><td colspan="3">لا توجد نتائج مطابقة.</td></tr>';return;}
  body.innerHTML=filtered.map(s=>'<tr><td>'+esc(s.name)+'</td><td>'+s.missing.map(x=>'<span class="tag">'+esc(x)+'</span>').join(' ')+'</td><td>'+s.missing.length+'</td></tr>').join('');
 }
